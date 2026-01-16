@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Scores.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Scores"
+    Shell.FlyoutBehavior="Disabled"
+    Title="Scores">
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+</Shell>
+
+
+<!-- EXEMPLE TP1
+    <Shell
+    x:Class="ConvertisseurUnites.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ConvertisseurUnites"
+    xmlns:pages="clr-namespace:ConvertisseurUnites.Pages"
+    Shell.FlyoutBehavior="Flyout"
+    Title="ConvertisseurUnites">
+
+    <FlyoutItem Title="Convertisseur">
+        <ShellContent ContentTemplate="{DataTemplate pages:ConvertisseurPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Aide">
+        <ShellContent ContentTemplate="{DataTemplate pages:AidePage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="À propos">
+        <ShellContent ContentTemplate="{DataTemplate pages:AProposPage}" />
+    </FlyoutItem>
+
+</Shell>-->
