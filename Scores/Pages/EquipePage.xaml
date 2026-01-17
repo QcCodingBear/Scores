@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Scores.Pages.EquipePage"
+             Title="Ajouter ou modifier une Équipe">
+    <VerticalStackLayout>
+        <Image
+            Source="equipepage1.png"
+            MaximumHeightRequest="250"
+            ScaleX="-1"/>
+        <Label 
+            x:Name="Id"
+            IsVisible="False"
+            Text=""/>
+        <Entry 
+            x:Name="NomEntry" 
+            Placeholder="Nom de l'équipe" 
+            Margin="20"/>
+        <Entry 
+            x:Name="DescriptionEntry" 
+            Placeholder="Description de l'équipe" 
+            Margin="20"/>
+        <Button 
+            x:Name="Enregistrer"
+            Text="Enregistrer" 
+            HorizontalOptions="Center" 
+            Margin="10"
+            Clicked="OnEnregistrerClicked"/>
+
+        <Image
+            Source="vifdor.png"
+            MaximumHeightRequest="250"/>
+    </VerticalStackLayout>
+</ContentPage>

@@ -44,13 +44,47 @@
 		<PackageReference Include="sqlite-net-pcl" Version="1.10.196-beta" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.11" />
 	</ItemGroup>
+
+	<ItemGroup>
+
+		<MauiImage Include="Resources\Images\*" />
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiIcon Include="Resources\AppIcon\vifdorico.png" />
+		<MauiSplashScreen Include="Resources\AppIcon\vifdorico.png" Color="#000000" BaseSize="128,128" />
+	</ItemGroup>
 	
 	<ItemGroup>
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
-		<MauiFont Include="Resources\Fonts\*" />
-		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	  <Compile Update="Pages\equipePage.xaml.cs">
+	    <DependentUpon>EquipePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\ListeEquipesPage.xaml.cs">
+	    <DependentUpon>ListeEquipesPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\MatchPage.xaml.cs">
+	    <DependentUpon>MatchPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <MauiXaml Update="Pages\EquipePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\InformationEquipePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ListeEquipesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ListeMatchsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\MatchPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 </Project>

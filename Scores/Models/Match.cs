@@ -16,5 +16,12 @@ namespace Scores.Models
         public DateTime DateMatch { get; set; }
         public int ScoreDomicile { get; set; }
         public int ScoreExterieur { get; set; }
+        public int VifDorAttrapeParEquipeId { get; set; }
+
+        [Ignore]
+        public string NomEquipeAdverse { get; set; }
+
+        [Ignore]
+        public string NomEquipeSuivie { get; set; }
     }
 }

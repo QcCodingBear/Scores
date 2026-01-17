@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Scores.Pages.ListeEquipesPage">
+
+    <Shell.TitleView>
+        <Grid Padding="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label
+                Text="Liste des équipes"
+                FontAttributes="Bold"
+                FontSize="18"
+                VerticalOptions="Center" />
+
+            <Button
+                Grid.Column="1"
+                Text="Ajouter"
+                Clicked="OnAjouterEquipeClicked"
+                VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
+    <VerticalStackLayout Padding="10" Spacing="10">
+
+        <Image
+            Source="equipepage1.png"
+            MaximumHeightRequest="100"/>
+
+        <Label
+            Text="Cette page affiche la liste des équipes enregistrées ainsi que leurs statistiques."
+            FontSize="14" />
+
+        <Grid Padding="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Text="Nom de l'équipe" FontAttributes="Bold" FontSize="13" VerticalTextAlignment="Center"/>
+            <Label Grid.Column="1" Text="Matchs joués" FontAttributes="Bold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            <Label Grid.Column="2" Text="Buts marqués" FontAttributes="Bold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            <Label Grid.Column="3" Text="Buts recus" FontAttributes="Bold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            <Label Grid.Column="4" Text="Vifs d'Or capturés" FontAttributes="Bold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            <Label Grid.Column="5" Text="Points" FontAttributes="Bold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </Grid>
+
+        <CollectionView
+            x:Name="EquipesCollectionView"
+            SelectionMode="Single"
+            SelectionChanged="EquipeClicked">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Text="{Binding Nom}" />
+                        <Label Grid.Column="1" Text="{Binding NombreMatchs}" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Column="2" Text="{Binding ScoresMarques}" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Column="3" Text="{Binding ScoresAdverses}" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Column="4" Text="{Binding VifsDorAttrapes}" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Column="5" Text="{Binding Points}" HorizontalTextAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Image
+            Source="equipepage2.png"
+            MaximumHeightRequest="100"/>
+
+    </VerticalStackLayout>
+</ContentPage>

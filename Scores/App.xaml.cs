@@ -1,4 +1,5 @@
 ﻿using Scores.Services;
+using Scores.Pages;
 
 namespace Scores
 {
@@ -6,6 +7,8 @@ namespace Scores
     {
         public App()
         {
+            Application.Current.UserAppTheme = AppTheme.Light;
+
             InitializeComponent();
 
             ServiceBD.ConfigurerBD();
