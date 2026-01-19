@@ -1,4 +1,3 @@
-using Scores.Models;
 using Scores.Services;
 
 namespace Scores.Pages;

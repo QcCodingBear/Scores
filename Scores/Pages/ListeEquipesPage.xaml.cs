@@ -39,33 +39,33 @@ public partial class ListeEquipesPage : ContentPage
     }
 
     // Méthode de calcul des points pour l'équipe en argument.
+    // J'ai repris mot à mot ce qui est demandé dans l'énoncé. 3 points si gagne, 1 point si égalité, et 0 si perdu.
+    // Pour savoir qui gagne je compare juste les scores.
     public static Equipe CalculerStats(Equipe equipe)
     {
-        var matchs = ServiceMatch.ObtenirTousLesMatchs();
+        var matchs = ServiceMatch.ObtenirTousLesMatchs().Where(m => m.EquipeDomicileId == equipe.Id || m.EquipeExterieurId == equipe.Id);
 
         foreach (var match in matchs)
         {
             bool domicile = match.EquipeDomicileId == equipe.Id;
             bool exterieur = match.EquipeExterieurId == equipe.Id;
-
-            if (domicile || exterieur)
-            {
-                equipe.NombreMatchs++;
-
-                int scoreEquipe = domicile ? match.ScoreDomicile : match.ScoreExterieur;
-                int scoreAdverse = domicile ? match.ScoreExterieur : match.ScoreDomicile;
-
-                equipe.ScoresMarques += scoreEquipe;
-                equipe.ScoresAdverses += scoreAdverse;
-
-                if (match.VifDorAttrapeParEquipeId == equipe.Id)
-                    equipe.VifsDorAttrapes++;
-
-                if (scoreEquipe > scoreAdverse)
-                    equipe.Points += 3;
-                else if (scoreEquipe == scoreAdverse)
-                    equipe.Points += 1;
-            }
+            
+            equipe.NombreMatchs++;
+            
+            int scoreEquipe = domicile ? match.ScoreDomicile : match.ScoreExterieur;
+            int scoreAdverse = domicile ? match.ScoreExterieur : match.ScoreDomicile;
+            
+            equipe.ScoresMarques += scoreEquipe;
+            equipe.ScoresAdverses += scoreAdverse;
+            
+            if (match.VifDorAttrapeParEquipeId == equipe.Id)
+                equipe.VifsDorAttrapes++;
+            
+            if (scoreEquipe > scoreAdverse)
+                equipe.Points += 3;
+            
+            else if (scoreEquipe == scoreAdverse)
+                equipe.Points += 1;
         }
         return equipe;
     }

@@ -1,4 +1,3 @@
-using Scores.Pages;
 using Scores.Models;
 
 namespace Scores.Pages;
@@ -85,6 +84,7 @@ public partial class MatchPage : ContentPage
             return null;
         }
 
+        // Enfin on créer l'objet Match avec toutes les données vérifiées avant de le retourner.
         var nouveauMatch = new Match
         {
             DateMatch = dateMatch,
@@ -101,8 +101,10 @@ public partial class MatchPage : ContentPage
     // Methode appelée en cliquant sur Enregistrer. 
     public async void OnEnregistrerClicked(object sender, EventArgs e)
     {
+        // On recupére le Match avec toutes les entrées vérifiées, ou null.
         Match? nouveauMatch = ValiderPickerAndEntry();
 
+        // Si le match n'est pas Null, on l'ajoute à la BD en utilisant le service.
         if (nouveauMatch != null)
         {
             Services.ServiceMatch.AjouterMatch(nouveauMatch);
