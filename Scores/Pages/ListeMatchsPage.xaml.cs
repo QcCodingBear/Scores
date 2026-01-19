@@ -23,6 +23,7 @@ public partial class ListeMatchsPage : ContentPage
     {
         var matchs = ServiceMatch.ObtenirTousLesMatchs();
 
+        // Ici NomEquipeSuivie pour l'equipe jouant à domicile et NomEquipeAdverse pour l'équipe extérieur. Afin d'éviter créer encore des attributs à l'objet Match.
         foreach (var match in matchs)
         {
             match.NomEquipeSuivie = ServiceEquipe.ObtenirEquipeParId(match.EquipeDomicileId).Nom;
