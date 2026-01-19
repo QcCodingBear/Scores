@@ -97,12 +97,12 @@
                         </Grid.RowDefinitions>
                         
                         <Label Grid.Row="0" Grid.Column="0" Text="{Binding NomEquipeAdverse}" />
-                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding ScoreExterieur}" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding ScoreEquipeAdverse}" HorizontalTextAlignment="Center"/>
                         
                         <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Text="{Binding DateMatch,StringFormat='{0:dd/MM/yyyy}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
 
                         <Label Grid.Row="1" Grid.Column="0" Text="{Binding NomEquipeSuivie}" />
-                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding ScoreDomicile}" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding ScoreEquipeSuivie}" HorizontalTextAlignment="Center"/>
 
                     </Grid>
                 </DataTemplate>

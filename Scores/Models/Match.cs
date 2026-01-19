@@ -20,8 +20,11 @@ namespace Scores.Models
 
         [Ignore]
         public string NomEquipeAdverse { get; set; }
-
+        [Ignore]
+        public int ScoreEquipeAdverse { get; set; }
         [Ignore]
         public string NomEquipeSuivie { get; set; }
+        [Ignore]
+        public int ScoreEquipeSuivie { get; set; }
     }
 }

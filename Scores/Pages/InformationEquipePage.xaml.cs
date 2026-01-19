@@ -24,10 +24,14 @@ public partial class InformationEquipePage : ContentPage
 
 			if (match.EquipeDomicileId == equipe.Id)
             {
+                match.ScoreEquipeSuivie = match.ScoreDomicile;
+                match.ScoreExterieur = match.ScoreExterieur;
 				match.NomEquipeAdverse = ServiceEquipe.ObtenirEquipeParId(match.EquipeExterieurId).Nom;
 			}
 			else
 			{
+                match.ScoreEquipeSuivie = match.ScoreExterieur;
+                match.ScoreEquipeAdverse = match.ScoreDomicile;
 				match.NomEquipeAdverse = ServiceEquipe.ObtenirEquipeParId(match.EquipeDomicileId).Nom;
             }
         }
