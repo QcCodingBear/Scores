@@ -13,6 +13,7 @@ public partial class EquipePage : ContentPage
 		InitializeComponent();
 
 		if (equipe != null) PageEnModeUpdate(equipe);
+        else IdEquipe = -1;
     }
 
     // Si la page doit afficher une équipe à mettre à jour on récupére ses informations.

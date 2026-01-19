@@ -113,7 +113,6 @@
 
                 <Picker 
             x:Name="VifDorAttrapeParEquipePicker" 
-            ItemsSource=""
             Grid.Row="1"/>
             </Grid>
 
