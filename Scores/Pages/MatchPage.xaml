@@ -2,11 +2,152 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Scores.Pages.MatchPage"
-             Title="Match">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Enregistrer un Match"
+             BackgroundImageSource="bg.png">
+    
+    <!-- La page pouvant être longue, j'ai utiisé un ScrollView afin de pouvoir la parcourir -->
+    <ScrollView>
+        <!-- Je veux un affichage vertical de ma page, donc VerticalStackLayout.-->
+        <VerticalStackLayout>
+            <!-- Image décorative en haut de la page.-->
+            <Image
+            Source="equipepage1.png"
+            MaximumHeightRequest="150"
+            ScaleX="-1"/>
+
+            <!-- J'ai ajouté les duos Label + Picker/Entry dans un Grid chacuns. Chaque Grid est sur deux lignes. Ca me permet d'isoler facilement avec du Margin
+            chaque "combo" de Grid Row-->
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label
+                Text="Équipe jouant à domicile"
+                FontAttributes="Bold"
+                FontSize="16"
+                Grid.Row="0"/>
+
+                <Picker 
+                x:Name="EquipeDomicilePicker" 
+                SelectedIndexChanged="UpdateVifDorPicker"
+                Grid.Row="1"/>
+            </Grid>
+
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label
+                Text="Équipe jouant à l'extérieur"
+                FontAttributes="Bold"
+                FontSize="16"
+                Grid.Row="0"/>
+
+                <!-- Les SelectedIndexChanged permettent d'appeler la methode ciblée lorsque la valeur du Picker Change.-->
+                <Picker 
+                x:Name="EquipeExterieurPicker" 
+                SelectedIndexChanged="UpdateVifDorPicker"
+                Grid.Row="1"/>
+            </Grid>
+
+            <!-- Image hors de l'ecran pour animation. 
+            Placée à peu prés au milieu de la page pour donner un effet "coupé en deux" au contenu lors du passage. -->
+            <Image x:Name="VifDorVolant"
+               Source="vifdorlogo.png"
+               WidthRequest="400"
+               HeightRequest="400"
+               TranslationY="-1000"
+               IsVisible="False"
+               VerticalOptions="Center"
+               HorizontalOptions="Start" />
+
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <Label
+                Text="Scores de l'équipe à domicile"
+                FontAttributes="Bold"
+                FontSize="16"
+                Grid.Row="0"/>
+
+                <Entry 
+                x:Name="ScoreDomicileEntry" 
+                Placeholder="Saisir le score ex: 70"
+                Grid.Row="1"/>
+            </Grid>
+
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <Label
+            Text="Scores de l'équipe à l'extérieur"
+            FontAttributes="Bold"
+            FontSize="16"
+            Grid.Row="0"/>
+
+                <Entry 
+            x:Name="ScoreExterieurEntry" 
+            Placeholder="Saisir le score ex: 70"
+            Grid.Row="1"/>
+            </Grid>
+
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <Label
+            Text="Vif d'or attrapé par"
+            FontAttributes="Bold"
+            FontSize="16"
+            Grid.Row="0"/>
+
+                <Picker 
+            x:Name="VifDorAttrapeParEquipePicker" 
+            ItemsSource=""
+            Grid.Row="1"/>
+            </Grid>
+
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <Label
+                Text="Date du match"
+                FontAttributes="Bold"
+                FontSize="16"
+                Grid.Row="0"/>
+
+                <DatePicker 
+                x:Name="DatePickerMatch"
+                Grid.Row="1"/>
+            </Grid>
+
+            <!-- Bouton centré en bas de page hors du Grid.-->
+            <Button 
+            x:Name="Enregistrer"
+            Text="Enregistrer" 
+            HorizontalOptions="Center" 
+            Margin="10"
+            BackgroundColor="Gold"
+            TextColor="Black"
+            Clicked="OnEnregistrerClicked"/>
+
+            <!-- Image décorative en bad de la page.-->
+            <Image
+            Source="vifdor.png"
+            MaximumHeightRequest="250"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

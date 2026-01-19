@@ -2,11 +2,115 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Scores.Pages.ListeMatchsPage"
-             Title="ListeMatchsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             BackgroundImageSource="bg.png">
+
+    <!-- Le Shell.TitleView permet de modifier la ligne du TitleView. J'ai ici insérer un Grid afin de forcer la séparation et positionner correctement le bouton Ajouter.-->
+    <Shell.TitleView>
+        <Grid Padding="5">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label
+                Text="Liste des matchs"
+                FontAttributes="Bold"
+                FontSize="18"
+                VerticalOptions="Center" />
+
+            <Button
+                Grid.Column="1"
+                Text="Ajouter"
+                Clicked="AjouterMatchClicked"
+                VerticalOptions="Center"
+                BackgroundColor="Gold"
+                TextColor="Black"/>
+        </Grid>
+    </Shell.TitleView>
+
+    <!-- La page pouvant être longue, j'ai utiisé un ScrollView afin de pouvoir la parcourir -->
+    <ScrollView>
+        <!-- Je veux un affichage vertical de ma page, donc VerticalStackLayout.-->
+        <VerticalStackLayout Padding="10" Spacing="10">
+
+            <!-- Image décorative en haut de la page.-->
+            <Image
+            Source="equipepage2.png"
+            MaximumHeightRequest="150"/>
+
+            <Label
+            Text="Liste de tous les matchs joués par toutes les équipes cette saison."
+            FontSize="13"
+            Margin="0,10,0,0"/>
+
+            <!-- Un grid afin de placer les colonnes d'en tete du tableau. -->
+        <Grid Padding="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Text="Equipe adverse"
+                       FontAttributes="Bold" FontSize="13" VerticalTextAlignment="Center"/>
+                <Label Grid.Column="1" Text="Score"
+                       FontAttributes="Bold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Grid.Column="2" Text="Date du match"
+                       FontAttributes="Bold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+
+        </Grid>
+
+            <!-- Image hors de l'ecran pour animation. 
+            Placée à peu prés au milieu de la page pour donner un effet "coupé en deux" au contenu lors du passage. -->
+        <Image x:Name="EquipeVolante"
+       Source="equipepage1.png"
+       WidthRequest="400"
+       HeightRequest="400"
+       TranslationX="-500"
+       IsVisible="False"
+       VerticalOptions="Center"
+       HorizontalOptions="Start" />
+
+            <!-- Début de la CollectionView. Les Matchs n'etant pas selectionnables, la selectionMode est sur None. -->
+        <CollectionView
+            x:Name="MatchsCollectionView"
+            SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <!-- On appel ici un Grid sur 3 colonnes et 2 lignes afin de disposer les valeurs en correspondance avec les en-tetes. Chaque Item aura ce meme modele de Grid.
+                    Les deux lignes sont nécessaires pour afficher les deux équipes du match.-->
+                    <Grid Padding="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding NomEquipeAdverse}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding ScoreExterieur}" HorizontalTextAlignment="Center"/>
+
+                        <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Text="{Binding DateMatch,StringFormat='{0:dd/MM/yyyy}'}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding NomEquipeSuivie}" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding ScoreDomicile}" HorizontalTextAlignment="Center"/>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+            
+            <!-- Image décorative en bad de la page.-->
+            <Image
+            Source="vifdor.png"
+            MaximumHeightRequest="120"
+            ScaleX="-1"/>
+        </VerticalStackLayout>
+  </ScrollView>
 </ContentPage>

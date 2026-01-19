@@ -6,15 +6,17 @@
     xmlns:local="clr-namespace:Scores"
     xmlns:pages="clr-namespace:Scores.Pages"
     Shell.FlyoutBehavior="Flyout"
-    Title="Scores">
+    Title="Scores"
+    FlyoutBackgroundColor="LavenderBlush">
 
     <!-- Images pour equipes et matchs generées par Copilot-->
     <FlyoutItem Title="Liste des équipes" Icon="equipes.png">
-        <ShellContent ContentTemplate="{DataTemplate pages:ListeEquipesPage}" />
+        <ShellContent ContentTemplate="{DataTemplate pages:ListeEquipesPage}" Shell.BackgroundColor="LavenderBlush"/>
     </FlyoutItem>
 
+
     <FlyoutItem Title="Liste des matchs" Icon="matchs.png">
-        <ShellContent ContentTemplate="{DataTemplate pages:ListeEquipesPage}" />
+        <ShellContent ContentTemplate="{DataTemplate pages:ListeMatchsPage}" Shell.BackgroundColor="LavenderBlush"/>
     </FlyoutItem>
 
 </Shell>

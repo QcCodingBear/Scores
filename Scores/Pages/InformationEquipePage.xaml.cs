@@ -10,10 +10,11 @@ public partial class InformationEquipePage : ContentPage
 		InitializeComponent();
 		Id.Text = equipe.Id.ToString();
 		ActualiserEquipe(Id.Text);
-        ActualiserMatchDeLequipe(equipe);
+        RécupérerMatchsDeLequipe(equipe);
     }
 
-	public void ActualiserMatchDeLequipe(Equipe equipe)
+    // Méthode permettant de récupérer les matchs de l'équipe en argument, selon l'affichage voulu par l'ennoncé.
+	public void RécupérerMatchsDeLequipe(Equipe equipe)
 	{
 		var matchs = ServiceMatch.ObtenirTousLesMatchs().Where(m => m.EquipeDomicileId == equipe.Id || m.EquipeExterieurId == equipe.Id).ToList();
 
@@ -33,27 +34,53 @@ public partial class InformationEquipePage : ContentPage
         MatchsCollectionView.ItemsSource = matchs;
     }
 
-	public void ModifierEquipeClicked(object sender, EventArgs e)
+    // Méthode appelée lors du clique sur le bouton modifier.
+	public async void ModifierEquipeClicked(object sender, EventArgs e)
 	{
-		int id = Convert.ToInt32(Id.Text);
-        Equipe equipe = ServiceEquipe.ObtenirEquipeParId(id);
-        Navigation.PushAsync(new EquipePage(equipe));
+        if (!SaisonEnCours())
+        {
+            int id = Convert.ToInt32(Id.Text);
+            Equipe equipe = ServiceEquipe.ObtenirEquipeParId(id);
+            await AppelVifDorVolant();
+            await Navigation.PushAsync(new EquipePage(equipe));
+        }
     }
 
+    // Méthode permettant de récupérer toutes les informations de l'équipe voulue.
 	public void ActualiserEquipe(string id) 
 	{
 		int equipeId = int.Parse(id);
 		Equipe equipe = ServiceEquipe.ObtenirEquipeParId(equipeId);
 		TitreLabel.Text = equipe.Nom;
 		DescriptionLabel.Text = equipe.Description;
-		ActualiserMatchDeLequipe(equipe);
+        RécupérerMatchsDeLequipe(equipe);
     }
 
+    // Methode appelée automatiquement à l'apparition de la page. On appel la méthode pour actualiser l'équipe si elle a été update.
     protected override void OnAppearing()
     {
         base.OnAppearing();
         ActualiserEquipe(Id.Text);
     }
 
+    // Methode pour l'animation au changement de page.
+    // On valide les coordonnées entrées et on lance l'animation pour ensuite refaire disparaitre l'image hors écran.
+    private async Task AppelVifDorVolant()
+    {
+        VifDorVolant.IsVisible = true;
+        VifDorVolant.TranslationX = 1000;
+        await VifDorVolant.TranslateTo(-500, -200, 400, Easing.Linear);
+        VifDorVolant.IsVisible = false;
+    }
 
+    // Metjode utilisée pour vérifier si une saison est en cours ou pas.
+    private bool SaisonEnCours()
+    {
+        if (ServiceMatch.ObtenirTousLesMatchs().Count() > 0)
+        {
+            DisplayAlert("Action impossible!", "La saison de quidditch a commencé.", "OK");
+            return true;
+        }
+        return false;
+    }
 }

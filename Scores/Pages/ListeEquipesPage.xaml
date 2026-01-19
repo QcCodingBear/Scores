@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Scores.Pages.ListeEquipesPage">
+             x:Class="Scores.Pages.ListeEquipesPage"
+             BackgroundImageSource="bg.png">
 
+    <!-- Le Shell.TitleView permet de modifier la ligne du TitleView. J'ai ici insérer un Grid afin de forcer la séparation et positionner correctement le bouton Ajouter.-->
     <Shell.TitleView>
         <Grid Padding="5">
             <Grid.ColumnDefinitions>
@@ -20,69 +22,97 @@
                 Grid.Column="1"
                 Text="Ajouter"
                 Clicked="OnAjouterEquipeClicked"
-                VerticalOptions="Center" />
+                VerticalOptions="Center" 
+                BackgroundColor="Gold"
+                TextColor="Black"/>
         </Grid>
     </Shell.TitleView>
 
-    <VerticalStackLayout Padding="10" Spacing="10">
+    <!-- La page pouvant être longue, j'ai utiisé un ScrollView afin de pouvoir la parcourir -->
+    <ScrollView>
+        <!-- Je veux un affichage vertical de ma page, donc VerticalStackLayout.-->
+        <VerticalStackLayout Padding="10" Spacing="10">
 
-        <Image
+            <!-- Image décorative en haut de la page.-->
+            <Image
             Source="equipepage1.png"
             MaximumHeightRequest="100"/>
 
-        <Label
+            <Label
             Text="Cette page affiche la liste des équipes enregistrées ainsi que leurs statistiques."
             FontSize="14" />
 
-        <Grid Padding="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+            <!-- Un grid afin de placer les colonnes d'en tete du tableau. -->
+            <Grid Padding="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0" Text="Nom de l'équipe" FontAttributes="Bold" FontSize="13" VerticalTextAlignment="Center"/>
-            <Label Grid.Column="1" Text="Matchs joués" FontAttributes="Bold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-            <Label Grid.Column="2" Text="Buts marqués" FontAttributes="Bold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-            <Label Grid.Column="3" Text="Buts recus" FontAttributes="Bold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-            <Label Grid.Column="4" Text="Vifs d'Or capturés" FontAttributes="Bold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-            <Label Grid.Column="5" Text="Points" FontAttributes="Bold" FontSize="13" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-        </Grid>
+                <Label Grid.Column="0" Text="Nom de l'équipe"
+                       FontAttributes="Bold" FontSize="12" VerticalTextAlignment="Center"/>
+                <Label Grid.Column="1" Text="Matchs joués"
+                       FontAttributes="Bold" FontSize="12" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Grid.Column="2" Text="Buts marqués"
+                       FontAttributes="Bold" FontSize="12" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Grid.Column="3" Text="Buts recus"
+                       FontAttributes="Bold" FontSize="12" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Grid.Column="4" Text="Vifs d'Or capturés"
+                       FontAttributes="Bold" FontSize="12" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Grid.Column="5" Text="Points"
+                       FontAttributes="Bold" FontSize="12" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            </Grid>
 
-        <CollectionView
+            <!-- Image hors de l'ecran pour animation. 
+            Placée à peu prés au milieu de la page pour donner un effet "coupé en deux" au contenu lors du passage. -->
+            <Image x:Name="EquipeVolante"
+       Source="equipepage1.png"
+       WidthRequest="400"
+       HeightRequest="400"
+       TranslationX="-500"
+       IsVisible="False"
+       VerticalOptions="Center"
+       HorizontalOptions="Start" />
+
+            <!-- Début de la CollectionView. Les Equipes etant selectionnables, la selectionMode est sur Single (une à la fois). Appel de la méthode EquipeSelected à la selection. -->
+            <CollectionView
             x:Name="EquipesCollectionView"
             SelectionMode="Single"
-            SelectionChanged="EquipeClicked">
+            SelectionChanged="EquipeSelected">
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <!-- On appel ici un Grid sur 6 colonnes et 1 ligne afin de disposer les valeurs en correspondance avec les en-tetes. Chaque Item aura ce meme modele de Grid.-->
+                        <Grid Padding="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="0" Text="{Binding Nom}" />
-                        <Label Grid.Column="1" Text="{Binding NombreMatchs}" HorizontalTextAlignment="Center"/>
-                        <Label Grid.Column="2" Text="{Binding ScoresMarques}" HorizontalTextAlignment="Center"/>
-                        <Label Grid.Column="3" Text="{Binding ScoresAdverses}" HorizontalTextAlignment="Center"/>
-                        <Label Grid.Column="4" Text="{Binding VifsDorAttrapes}" HorizontalTextAlignment="Center"/>
-                        <Label Grid.Column="5" Text="{Binding Points}" HorizontalTextAlignment="Center"/>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                            <Label Grid.Column="0" Text="{Binding Nom}" />
+                            <Label Grid.Column="1" Text="{Binding NombreMatchs}" HorizontalTextAlignment="Center"/>
+                            <Label Grid.Column="2" Text="{Binding ScoresMarques}" HorizontalTextAlignment="Center"/>
+                            <Label Grid.Column="3" Text="{Binding ScoresAdverses}" HorizontalTextAlignment="Center"/>
+                            <Label Grid.Column="4" Text="{Binding VifsDorAttrapes}" HorizontalTextAlignment="Center"/>
+                            <Label Grid.Column="5" Text="{Binding Points}" HorizontalTextAlignment="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-        <Image
+            <!-- Image décorative en bad de la page.-->
+            <Image
             Source="equipepage2.png"
             MaximumHeightRequest="100"/>
 
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
